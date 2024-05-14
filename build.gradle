@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+defaultTasks = ['clean', 'build']
+
+group 'org.example'
+
+clean {
+    delete rootProject.buildDir 
+    delete rootProject.projectDir.getAbsolutePath() + '/bin'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+run {
+    standardInput = System.in
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.example.Main"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    doFirst {
+        file("$rootDir/bin").mkdirs()
+    }
+    destinationDirectory.set(file("$rootDir/bin"))
+}

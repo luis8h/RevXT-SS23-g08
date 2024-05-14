@@ -1,0 +1,10 @@
+{
+    "type": "java",
+    "name": "Debug (Gradle)",
+    "request": "launch",
+    "cwd": "${workspaceFolder}",
+    "console": "internalConsole",
+    "mainClass": "Main",
+    "projectName": "client_g08",
+    "args": ""
+}
